@@ -1,18 +1,17 @@
 import React, { FC } from 'react';
 import { GalleryItem } from '../../components';
 import { ScrollView, View, Text } from 'react-native';
-import useFetchPhotosQuery from '../../hooks/useFetchPhotosQuery';
 import { RootStackParamsList } from '../../navigation/AppNavigationContainer';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PATH } from '../../navigation/constants';
+import { useFetchPhotosQuery } from '../../api/photos';
 
 type Props = NativeStackScreenProps<RootStackParamsList, PATH.GALLERY>;
 
 const Gallery: FC<Props> = ({ navigation }) => {
-  const { photos, isLoading, isError } = useFetchPhotosQuery();
+  const { data: photos = [], isLoading, isError } = useFetchPhotosQuery(null);
 
   const onPhotoPress = (imageURI: string) => {
-    console.log(imageURI);
     navigation.navigate(PATH.PHOTO_VIEW, { imageURI });
   };
 
@@ -29,13 +28,13 @@ const Gallery: FC<Props> = ({ navigation }) => {
                 key={photo.id}
                 description={photo.description}
                 author={photo.author}
-                imageURI={photo.imageURI}
+                imageURI={photo.thumbnailURI}
                 onPress={() => {
-                  onPhotoPress(photo.imageURI);
+                  onPhotoPress(photo.fullImageURI);
                 }}
               />
             ))}
-          {isError && <Text>An error occured</Text>}
+          {isError && <Text>An error occurred</Text>}
         </ScrollView>
       )}
     </View>

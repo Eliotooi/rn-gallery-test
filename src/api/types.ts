@@ -90,5 +90,6 @@ export type Photo = {
   id: string;
   description: string;
   author: string;
-  imageURI: string;
+  thumbnailURI: string;
+  fullImageURI: string;
 };

@@ -30,7 +30,7 @@ const AppNavigationContainer = () => {
           name={PATH.PHOTO_VIEW}
           component={PhotoViewScreen}
           options={{
-            title: 'Photo Detailed',
+            title: 'Photo Detailed View',
           }}
         />
       </RootStack.Navigator>
